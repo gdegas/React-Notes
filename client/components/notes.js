@@ -21,7 +21,6 @@ export default class Notes extends Component {
   }
 
   handleData(event) {
-
     event.preventDefault()
     const formData = new FormData(event.target)
     const typedData = {
@@ -35,14 +34,23 @@ export default class Notes extends Component {
       },
       body: JSON.stringify(typedData)
     })
-    .then(() => {
-      const state = this.state.notes.slice()
-      state.push(typedData)
-      this.setState({notes: state})
+    .then((response) => {
+      return response.json()
+    })
+    .then((note) => {
+      this.setState({notes: this.state.notes.concat(note)})
     })
     .catch(err => {
       console.log('ERROR', err)
     })
+  }
+
+  deleteNote(event) {
+    const dataId = event.target.getAttribute('data-id')
+    fetch('/notes/' + dataId, {
+      method: 'DELETE'
+    })
+    .then(() => console.log('message deleted'))
 
   }
 
@@ -57,9 +65,9 @@ export default class Notes extends Component {
           ? <p>...Loading</p>
           : this.state.notes.map((notes, i) => {
             return (
-              <div className="card" key={ i }>
+              <div className="card" id="note" key={ i }>
                 <div className="card-block">
-                  <h4 className="card-title">{notes.title}</h4>
+                  <h4 className="card-title" onClick={this.deleteNote} data-id={notes.id}>{notes.title}</h4>
                   <h6 className="card-subtitle mb-2 text-muted">{notes.create_date}</h6>
                   <p className="card-text">{notes.content}</p>
                 </div>
