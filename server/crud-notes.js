@@ -14,10 +14,19 @@ function addNote(note) {
   const query = knex
     .insert(note)
     .into('notes')
+    .returning('*')
+  return query
+}
+
+function deleteNote(id) {
+  const query = knex
+    .where('id', id)
+    .delete()
   return query
 }
 
 module.exports = {
   getNotes,
-  addNote
+  addNote,
+  deleteNote
 }
