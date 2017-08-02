@@ -21,13 +21,19 @@ app.get('/notes', (req, res) => {
 app.post('/notes', (req, res) => {
   const noteBody = req.body
   crudNotes.addNote(noteBody)
-    .then(report => {
-      res.sendStatus(201)
+    .then(note => {
+      res.status(201).json(note)
     })
     .catch(error => {
       console.log(error)
       res.sendStatus(500)
     })
+})
+
+app.delete('/notes/:id', (req, res) => {
+  const noteId = parseInt(req.params.id, 10)
+  crudNotes.deleteNote(noteId)
+  .then(() => res.sendStatus(204))
 })
 
 app.listen(3000, () => console.log('listening on 3000'))

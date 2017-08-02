@@ -22,6 +22,7 @@ function deleteNote(id) {
   const query = knex
     .where('id', id)
     .delete()
+    .from('notes')
   return query
 }
 
