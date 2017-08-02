@@ -34,6 +34,7 @@ app.delete('/notes/:id', (req, res) => {
   const noteId = parseInt(req.params.id, 10)
   crudNotes.deleteNote(noteId)
   .then(() => res.sendStatus(204))
+  .catch((error) => console.log(error))
 })
 
 app.listen(3000, () => console.log('listening on 3000'))

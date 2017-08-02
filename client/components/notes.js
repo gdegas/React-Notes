@@ -6,7 +6,7 @@ export default class Notes extends Component {
     super(props)
     this.state = { notes: [] }
     this.handleData = this.handleData.bind(this)
-
+    this.deleteNote = this.deleteNote.bind(this)
   }
 
   async componentDidMount() {
@@ -50,8 +50,12 @@ export default class Notes extends Component {
     fetch('/notes/' + dataId, {
       method: 'DELETE'
     })
-    .then(() => console.log('message deleted'))
-
+    .then(() => {
+      this.setState({ notes: this.state.notes.filter(note => {
+        return note.id !== +dataId
+      })
+      })
+    })
   }
 
   render() {
@@ -67,9 +71,10 @@ export default class Notes extends Component {
             return (
               <div className="card" id="note" key={ i }>
                 <div className="card-block">
-                  <h4 className="card-title" onClick={this.deleteNote} data-id={notes.id}>{notes.title}</h4>
+                  <h4 className="card-title">{notes.title}</h4>
                   <h6 className="card-subtitle mb-2 text-muted">{notes.create_date}</h6>
                   <p className="card-text">{notes.content}</p>
+                  <button type="button" data-id={notes.id} onClick={this.deleteNote} className="btn btn-danger">Delete Note</button>
                 </div>
               </div>
             )
