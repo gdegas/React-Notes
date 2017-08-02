@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
+import NoteForm from './add-note'
 
 export default class Notes extends Component {
   constructor(props) {
     super(props)
     this.state = { notes: [] }
+    this.handleData = this.handleData.bind(this)
+
   }
 
   async componentDidMount() {
@@ -17,11 +20,38 @@ export default class Notes extends Component {
     }
   }
 
+  handleData(event) {
+
+    event.preventDefault()
+    const formData = new FormData(event.target)
+    const typedData = {
+      title: formData.get('noteTitle'),
+      content: formData.get('content')
+    }
+    fetch('/notes', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(typedData)
+    })
+    .then(() => {
+      const state = this.state.notes.slice()
+      state.push(typedData)
+      this.setState({notes: state})
+    })
+    .catch(err => {
+      console.log('ERROR', err)
+    })
+
+  }
+
   render() {
     return (
       <div>
         <h1 className="text-center">React Notes</h1>
         <hr />
+        <NoteForm handleData={this.handleData} />
         <div>
           {!this.state.notes.length
           ? <p>...Loading</p>
@@ -36,7 +66,7 @@ export default class Notes extends Component {
               </div>
             )
           })
-          }
+        }
         </div>
       </div>
     )
