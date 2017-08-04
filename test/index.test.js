@@ -4,7 +4,7 @@ const request = require('request')
 
 describe('Server Requests', () => {
 
-  const url = 'http://localhost:3000/notes'
+  const url = 'http://localhost:' + process.env.POST + '/notes'
 
   it('returns a JSON object', done => {
     request.get(url, { json: true }, function (error, response, body) {
