@@ -1,3 +1,4 @@
+require('dotenv').config()
 const crudNotes = require('./crud-notes')
 const path = require('path')
 const express = require('express')
