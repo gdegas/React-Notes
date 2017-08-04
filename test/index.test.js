@@ -14,7 +14,7 @@ describe('Server Requests', () => {
     })
   })
   it('saves a new note', done => {
-    const json = { title: 'Test Note', body: 'Lorem ipsum...' }
+    const json = { title: 'Test Note', content: 'Lorem ipsum...' }
     request.post(url, { json }, (err, res, body) => {
       expect(err).to.equal(null)
       expect(res).to.have.property('statusCode', 201)
