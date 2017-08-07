@@ -3,7 +3,7 @@ CREATE TABLE notes (
   id            serial,
   title         text,
   content       text,
-  create_date   date default now()
+  create_date   timestamptz(6) not null default now()
   );
 ---
 
