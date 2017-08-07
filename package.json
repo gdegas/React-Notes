@@ -7,6 +7,7 @@
   "description": "A web app for JS developers who want to sae notes about what they've learned.",
   "main": "index.js",
   "scripts": {
+    "start": "node server/index.js",
     "test": "mocha test/",
     "bundle": "browserify client/index.js -o server/public/main.js -t babelify",
     "bundle:watch": "watchify -v -d -t babelify client/index.js -o server/public/main.js",
@@ -17,7 +18,7 @@
     "db:status": "pg-bump status",
     "db:rebuild": "pg-bump down && pg-bump up",
     "postinstall": "browserify client/index.js -o server/public/main.js -t babelify",
-    "heroku-postbuild": "pg-bump up"    
+    "heroku-postbuild": "pg-bump up"
   },
   "repository": {
     "type": "git",
