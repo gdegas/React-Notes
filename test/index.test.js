@@ -1,10 +1,11 @@
+require('dotenv').config()
 const { describe, it } = require('mocha')
 const { expect } = require('chai')
 const request = require('request')
 
 describe('Server Requests', () => {
 
-  const url = 'http://localhost:' + process.env.POST + '/notes'
+  const url = 'http://localhost:' + process.env.PORT + '/notes'
 
   it('returns a JSON object', done => {
     request.get(url, { json: true }, function (error, response, body) {
