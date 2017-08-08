@@ -1,2 +1,2 @@
 # React-Notes
-A web app for JS developers who want to sae notes about what they've learned.
+A web app for JS developers who want to save notes about what they've learned.
